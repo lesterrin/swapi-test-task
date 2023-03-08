@@ -22,6 +22,7 @@ const CharactersList = ({characters, total, incrementCurrentPage, isFetching}) =
         <div className={s.container}>
             <div className={s.title}>{total} Peoples for you to choose your favorite</div>
             <br/>
+            <div>filter</div>
             <div className={s.characters_list}>
                 {charactersItems}
             </div>
