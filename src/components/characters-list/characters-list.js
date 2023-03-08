@@ -2,6 +2,7 @@ import React from "react";
 import s from './characters-list.module.css';
 import CharactersListItem from "./characters-list-item/characters-list-item";
 import Loader from "../loader/loader";
+import Filter from "./filter/filter";
 
 const CharactersList = ({characters, total, incrementCurrentPage, isFetching}) => {
 
@@ -22,7 +23,8 @@ const CharactersList = ({characters, total, incrementCurrentPage, isFetching}) =
         <div className={s.container}>
             <div className={s.title}>{total} Peoples for you to choose your favorite</div>
             <br/>
-            <div>filter</div>
+            <Filter/>
+            <br />
             <div className={s.characters_list}>
                 {charactersItems}
             </div>

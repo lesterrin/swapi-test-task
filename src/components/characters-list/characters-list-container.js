@@ -17,7 +17,6 @@ const CharactersListContainer = ({
                                      isFetching
                                  }) => {
     useEffect(() => {
-        console.log(currentPage);
         getCharacters(currentPage);
     }, [currentPage]);
 
