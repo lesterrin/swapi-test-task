@@ -1,3 +1,8 @@
+.header {
+    background: #1F2A63;
+    height: 93px;
+}
+
 .container {
     padding-right: 15px;
     padding-left: 15px;
@@ -5,14 +10,41 @@
     margin-left: auto;
 }
 
-.header {
-    grid-area: header;
-    background-color: white;
+.logo{
+    margin: auto 0;
+}
+
+.inline{
+    display: flex;
+    justify-content: space-between;
 }
 
 .navigation_block {
-    float: right;
-    color: black;
+    font-size: 25px;
+    line-height: 93px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.navigation_block a {
+    text-decoration: none;
+    color: #fff;
+    position: relative;
+}
+
+.navigation_block a .item {
+    border-radius: 5px;
+    padding: 0 20px;
+}
+
+.active:after{
+    background: #CFDAB0;;
+    content: "";
+    top: 70px;
+    height: 2px;
+    left: 0;
+    position: absolute;
+    width: 100%;
 }
 
 @media (min-width: 768px) {

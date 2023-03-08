@@ -3,7 +3,7 @@ import s from './characters-list.module.css';
 import CharactersListItem from "./characters-list-item/characters-list-item";
 import Loader from "../loader/loader";
 
-const CharactersList = ({characters, setCharacters, incrementCurrentPage, isFetching}) => {
+const CharactersList = ({characters, total, incrementCurrentPage, isFetching}) => {
 
     const charactersItems = characters.map(({id, name, height, mass, gender, hair_color, birth_year}) => {
         return (
@@ -19,9 +19,10 @@ const CharactersList = ({characters, setCharacters, incrementCurrentPage, isFetc
         );
     });
     return (
-        <>
-            <div>Characters List</div>
-            <div className={`${s.characters_list} ${s.container}`}>
+        <div className={s.container}>
+            <div className={s.title}>{total} Peoples for you to choose your favorite</div>
+            <br/>
+            <div className={s.characters_list}>
                 {charactersItems}
             </div>
             <div className={s.more_wrapper}>
@@ -33,7 +34,7 @@ const CharactersList = ({characters, setCharacters, incrementCurrentPage, isFetc
                     </button>
                 )}
             </div>
-        </>
+        </div>
     )
 }
 

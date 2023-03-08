@@ -1,11 +1,14 @@
 import s from './characters-list-item.module.css';
 import React from "react";
 
-const CharactersListItem = ({name, birth_year}) => {
+const CharactersListItem = ({name, birth_year,height,mass,gender}) => {
     return (
         <div className={s.character_list_item}>
-            <span>{name}</span>
-            <span>{birth_year}</span>
+            <div>{name}</div>
+            <div>{birth_year}</div>
+            <div>{height}</div>
+            <div>{mass}</div>
+            <div>{gender}</div>
         </div>
     )
 }
