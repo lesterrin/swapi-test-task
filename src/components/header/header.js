@@ -6,10 +6,16 @@ const Header = (props) => {
         <div className={s.header}>
             <div className={s.container}>
                 <span>StarWars</span>
-                <div className={s.navigation_block}>
-                    <div>home</div>
-                    <div>characters</div>
-                </div>
+                <NavLink to='/'>
+                    {({ isActive}) => (
+                        <div className={isActive ? `${s.active} ${s.item}` : s.item }>Home</div>
+                    )}
+                </NavLink>
+                <NavLink to='characters'>
+                    {({ isActive}) => (
+                        <div className={ isActive ? `${s.active} ${s.item}` : s.item }>Characters</div>
+                    )}
+                </NavLink>
             </div>
         </div>
     )
