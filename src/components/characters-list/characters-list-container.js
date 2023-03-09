@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
 import {
     getCharacters,
-    incrementCurrentPage,
+    setCurrentPage, startPackSuccess,
     toggleIsFetching
 } from "../../redux/charactersReducer";
 
@@ -10,21 +10,24 @@ import CharactersList from './characters-list';
 
 const CharactersListContainer = ({
                                      characters,
-                                     total,
+                                     totalCharacters,
                                      currentPage,
-                                     incrementCurrentPage,
+                                     setCurrentPage,
                                      getCharacters,
-                                     isFetching
+                                     isFetching,
+                                     isStartPackInitialized,
+                                     startPackSuccess
                                  }) => {
     useEffect(() => {
-        getCharacters(currentPage);
+            getCharacters(currentPage);
     }, [currentPage]);
 
     return (
         <CharactersList
             characters={characters}
-            total={total}
-            incrementCurrentPage={incrementCurrentPage}
+            totalCharacters={totalCharacters}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
             isFetching={isFetching}
         />
     );
@@ -35,12 +38,14 @@ const mapStateToProps = (state) => {
         characters: state.charactersData,
         currentPage: state.currentPage,
         isFetching: state.isFetching,
-        total: state.total
+        totalCharacters: state.totalCharacters,
+        isStartPackInitialized: state.isStartPackInitialized
     };
 };
 
 export default connect(mapStateToProps, {
-    incrementCurrentPage,
+    setCurrentPage,
     toggleIsFetching,
     getCharacters,
+    startPackSuccess
 })(CharactersListContainer);

@@ -1,3 +1,7 @@
+.item_wrapper {
+    cursor: pointer;
+}
+
 .container {
     padding-right: 15px;
     padding-left: 15px;
@@ -21,22 +25,12 @@
     grid-template-areas: ". . .";
 }
 
-.more_wrapper {
+.paginator_wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100%;
     padding: 10px;
-}
-
-.more_btn {
-    cursor: pointer;
-    width: 150px;
-    height: 50px;
-    background: dodgerblue;
-    color: white;
-    border: none;
-    border-radius: 5px;
 }
 
 @media (min-width: 768px) {

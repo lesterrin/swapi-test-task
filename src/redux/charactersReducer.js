@@ -1,11 +1,12 @@
-import { getCharactersData } from '../api/api';
+import {getCharactersData} from '../api/api';
 
 const SET_CHARACTERS = 'SET-CHARACTERS';
 const SET_TOTAL = 'SET-TOTAL';
-const INCREMENT_CURRENT_PAGE = 'INCREMENT-CURRENT-PAGE';
+const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE';
 const TOGGLE_IS_FETCHING = 'TOGGLE-IS-FETCHING';
+const START_PACK_SUCCESS = 'START_PACK_SUCCESS';
 
-const initialState = { charactersData: [], isFetching: false, currentPage: 1, total: 0 };
+const initialState = {charactersData: [], isFetching: false, currentPage: 1, totalCharacters: 0, isStartPackInitialized: false};
 
 const charactersReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -13,13 +14,13 @@ const charactersReducer = (state = initialState, action) => {
         case SET_CHARACTERS:
             return {
                 ...state,
-                charactersData: [...state.charactersData, ...action.charactersData],
+                charactersData: [ ...action.charactersData],
             };
 
-        case INCREMENT_CURRENT_PAGE:
+        case SET_CURRENT_PAGE:
             return {
                 ...state,
-                currentPage: state.currentPage + 1,
+                currentPage: action.targetPage,
             };
 
         case TOGGLE_IS_FETCHING:
@@ -28,10 +29,16 @@ const charactersReducer = (state = initialState, action) => {
                 isFetching: action.bool,
             };
 
+        case START_PACK_SUCCESS:
+            return {
+                ...state,
+                isStartPackInitialized: true
+            };
+
         case SET_TOTAL:
             return {
                 ...state,
-                total: action.total
+                totalCharacters: action.totalCharacters
             }
 
         default:
@@ -40,13 +47,15 @@ const charactersReducer = (state = initialState, action) => {
 };
 
 
-export const setCharacters = (characters) => ({ type: SET_CHARACTERS, charactersData: characters });
-export const setTotal = (total) => ({ type: SET_TOTAL, total });
+export const setCharacters = (characters) => ({type: SET_CHARACTERS, charactersData: characters});
 
-export const incrementCurrentPage = () => ({ type: INCREMENT_CURRENT_PAGE });
+export const setTotalCharacters = (totalCharacters) => ({type: SET_TOTAL, totalCharacters});
 
-export const toggleIsFetching = (bool) => ({ type: TOGGLE_IS_FETCHING, bool });
+export const setCurrentPage = (targetPage) => ({type: SET_CURRENT_PAGE, targetPage: targetPage});
 
+export const toggleIsFetching = (bool) => ({type: TOGGLE_IS_FETCHING, bool});
+
+export const startPackSuccess = () => ({type: START_PACK_SUCCESS});
 
 export const getCharacters = (currentPage) => {
     return (dispatch) => {
@@ -55,7 +64,7 @@ export const getCharacters = (currentPage) => {
         getCharactersData(currentPage).then((data) => {
             dispatch(toggleIsFetching(false));
             dispatch(setCharacters(data.results));
-            dispatch(setTotal(data.count))
+            dispatch(setTotalCharacters(data.count))
         });
     };
 };
