@@ -2,11 +2,12 @@ import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
 import {
     getCharacters,
-    setCurrentPage, startPackSuccess,
+    setCurrentPage,
     toggleIsFetching
 } from "../../redux/charactersReducer";
 
 import CharactersList from './characters-list';
+import Loader from "../loader/loader";
 
 const CharactersListContainer = ({
                                      characters,
@@ -15,22 +16,26 @@ const CharactersListContainer = ({
                                      setCurrentPage,
                                      getCharacters,
                                      isFetching,
+                                     isInitialized,
                                      isStartPackInitialized,
                                      startPackSuccess
                                  }) => {
     useEffect(() => {
-            getCharacters(currentPage);
+        getCharacters(currentPage);
     }, [currentPage]);
 
-    return (
-        <CharactersList
-            characters={characters}
-            totalCharacters={totalCharacters}
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-            isFetching={isFetching}
-        />
-    );
+    if (isInitialized){
+        return <CharactersList
+                characters={characters}
+                totalCharacters={totalCharacters}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+                isFetching={isFetching}
+            />
+    } else{
+        return <Loader />
+    }
+
 };
 
 const mapStateToProps = (state) => {
@@ -39,13 +44,13 @@ const mapStateToProps = (state) => {
         currentPage: state.currentPage,
         isFetching: state.isFetching,
         totalCharacters: state.totalCharacters,
-        isStartPackInitialized: state.isStartPackInitialized
+        isStartPackInitialized: state.isStartPackInitialized,
+        isInitialized: state.isInitialized
     };
 };
 
 export default connect(mapStateToProps, {
     setCurrentPage,
     toggleIsFetching,
-    getCharacters,
-    startPackSuccess
+    getCharacters
 })(CharactersListContainer);

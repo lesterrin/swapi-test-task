@@ -4,9 +4,9 @@ const SET_CHARACTERS = 'SET-CHARACTERS';
 const SET_TOTAL = 'SET-TOTAL';
 const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE';
 const TOGGLE_IS_FETCHING = 'TOGGLE-IS-FETCHING';
-const START_PACK_SUCCESS = 'START_PACK_SUCCESS';
+const INITIALIZE_SUCCESS = 'INITIALIZE_SUCCESS';
 
-const initialState = {charactersData: [], isFetching: false, currentPage: 1, totalCharacters: 0, isStartPackInitialized: false};
+const initialState = {charactersData: [], isFetching: false, currentPage: 1, totalCharacters: 0, isInitialized: false};
 
 const charactersReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -29,10 +29,10 @@ const charactersReducer = (state = initialState, action) => {
                 isFetching: action.bool,
             };
 
-        case START_PACK_SUCCESS:
+        case INITIALIZE_SUCCESS:
             return {
                 ...state,
-                isStartPackInitialized: true
+                isInitialized: true
             };
 
         case SET_TOTAL:
@@ -55,13 +55,14 @@ export const setCurrentPage = (targetPage) => ({type: SET_CURRENT_PAGE, targetPa
 
 export const toggleIsFetching = (bool) => ({type: TOGGLE_IS_FETCHING, bool});
 
-export const startPackSuccess = () => ({type: START_PACK_SUCCESS});
+export const initializeSuccess = () => ({type: INITIALIZE_SUCCESS});
 
 export const getCharacters = (currentPage) => {
     return (dispatch) => {
         dispatch(toggleIsFetching(true));
 
         getCharactersData(currentPage).then((data) => {
+            dispatch(initializeSuccess());
             dispatch(toggleIsFetching(false));
             dispatch(setCharacters(data.results));
             dispatch(setTotalCharacters(data.count))

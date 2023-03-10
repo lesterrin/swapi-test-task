@@ -1,34 +1,50 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import s from './filter.module.css';
 import {connect} from "react-redux";
 
-const Filter = ({characters}) => {
+const Filter = ({characters}) => { //переместить на один уровень с контейнером списка
+
+    const fieldSelector = React.createRef();
+    const [selectedField, setSelectedField] = useState('name');
+
+    let filterParams = characters.map(e=>e.name);
+    filterParams = [...new Set(filterParams)];
+    filterParams = filterParams.map(e=><option value={e}>{e}</option>);
+
+    const [filteredParams, setFilteredParams] = useState(filterParams);
+
+
+
+
+    const [inc,setInc] = useState(1)
+
 
     //const fields = Object.keys(characters[0]).map(e => e.replace('_', ' '));
     const fields = Object.keys(characters[0]);
-    const fieldsOptions = fields.map(e => <option value={e}>{e}</option>);
-
-    const fieldSelector = React.createRef();
-
-    const [selectedField, setSelectorField] = useState('name');
+    //const fieldsOptions = fields.map(e => <option value={e}>{e}</option>);
 
     const changeFieldSelectorHandler = () => {
-        setSelectorField(fieldSelector.current.value); //допилить или убрать flux
-        const fieldValues = characters.map(e=>e[selectedField]);
-        console.log(fieldValues);
+        filterParams = characters.map(e=>e[fieldSelector.current.value]);
+        filterParams = [...new Set(filterParams)];
+        filterParams = filterParams.map(e => <option value={e}>{e}</option>);
+        setFilteredParams(filterParams);
     }
 
     return (
         <div>
             <select ref={fieldSelector} onChange={changeFieldSelectorHandler}>
-                {fieldsOptions}
+                <option value='name'>name</option>
+                <option value='height'>height</option>
+                <option value='mass'>mass</option>
+                <option value='hair_color'>hair color</option>
+                <option value='skin_color'>skin color</option>
+                <option value='eye_color'>eye color</option>
+                <option value='birth_year'>birth year</option>
+                <option value='gender'>gender</option>
             </select>
             <select>
                 <option>All</option>
-                <option>brown</option>
-                <option>red</option>
-                <option>blue</option>
-                <option>white</option>
+                {filteredParams}
             </select>
         </div>
     )

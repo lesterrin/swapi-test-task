@@ -11,8 +11,6 @@ const CharactersList = ({characters, totalCharacters, currentPage, setCurrentPag
     const [isOpen, setIsOpen] = useState(false);
     const [charId, setCharId] = useState(0);
 
-    console.log(isFetching, characters);
-
     const openModal = (id) => {
         setIsOpen(true);
         setCharId(id);
@@ -38,11 +36,11 @@ const CharactersList = ({characters, totalCharacters, currentPage, setCurrentPag
     return (
         <div className={s.container}>
             {isOpen ? <Modal setIsOpen={setIsOpen} character={characters[charId]}/> : null}
+            <div className={s.title}>{totalCharacters} Peoples for you to choose your favorite</div>
+            <br/>
 
             {!isFetching ? (
-                <div>
-                    <div className={s.title}>{totalCharacters} Peoples for you to choose your favorite</div>
-                    <br/>
+                <>
                     <Filter/>
                     <br/>
                     <div className={s.characters_list}>
@@ -51,9 +49,8 @@ const CharactersList = ({characters, totalCharacters, currentPage, setCurrentPag
                     <div className={s.paginator_wrapper}>
                         <Paginator totalCharacters={totalCharacters} currentPage={currentPage}
                                    setCurrentPage={setCurrentPage}/>
-
                     </div>
-                </div>
+                </>
             ) : (
                 <div className={s.paginator_wrapper}>
                     <Loader/>
