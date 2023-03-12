@@ -1,25 +1,17 @@
 .container {
     padding-right: 15px;
     padding-left: 15px;
-    margin-right: auto;
-    margin-left: auto;
     width: 750px;
+    margin: 20px auto;
 }
 
-.localization {
-    text-align: right;
-    font-size: 16px;
-    line-height: 20px;
-    color: #4B4B4B;
-    cursor: pointer;
-    margin-top: 28px;
+select {
+    border: none;
+    width: 135px;
 }
 
-.title {
-    text-align: center;
-    font-size: 35px;
-    font-weight: bold;
-    margin-top: 28px;
+select:focus {
+    outline: none;
 }
 
 @media (max-width: 767px) {

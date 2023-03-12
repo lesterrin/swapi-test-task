@@ -1,8 +1,0 @@
-select {
-    border: none;
-    width: 135px;
-}
-
-select:focus{
-    outline: none;
-}

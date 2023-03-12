@@ -1,3 +1,7 @@
+.wrapper {
+    text-align: center;
+}
+
 .lds_ellipsis {
     display: inline-block;
     position: relative;

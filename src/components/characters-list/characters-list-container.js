@@ -17,37 +17,42 @@ const CharactersListContainer = ({
                                      getCharacters,
                                      isFetching,
                                      isInitialized,
-                                     isStartPackInitialized,
-                                     startPackSuccess
+                                     filterParams,
+                                     captions
                                  }) => {
     useEffect(() => {
         getCharacters(currentPage);
     }, [currentPage]);
 
-    if (isInitialized){
+    if (filterParams.value !== 'all') {
+        characters = characters.filter(e => e[filterParams.property] === filterParams.value);
+    }
+
+    if (isInitialized) {
         return <CharactersList
-                characters={characters}
-                totalCharacters={totalCharacters}
-                currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
-                isFetching={isFetching}
-            />
-    } else{
-        return <Loader />
+            characters={characters}
+            totalCharacters={totalCharacters}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            isFetching={isFetching}
+            captions={captions}
+        />
+    } else {
+        return <Loader/>
     }
 
 };
 
-const mapStateToProps = (state) => {
-    return {
-        characters: state.charactersData,
-        currentPage: state.currentPage,
-        isFetching: state.isFetching,
-        totalCharacters: state.totalCharacters,
-        isStartPackInitialized: state.isStartPackInitialized,
-        isInitialized: state.isInitialized
-    };
-};
+const mapStateToProps = ({characters, localization}) => ({
+        characters: characters.charactersData,
+        currentPage: characters.currentPage,
+        isFetching: characters.isFetching,
+        totalCharacters: characters.totalCharacters,
+        isStartPackInitialized: characters.isStartPackInitialized,
+        isInitialized: characters.isInitialized,
+        filterParams: characters.filterParams,
+        captions: localization.selectedCaptions.characters
+});
 
 export default connect(mapStateToProps, {
     setCurrentPage,

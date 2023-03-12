@@ -2,11 +2,10 @@ import React, {useState} from "react";
 import s from './characters-list.module.css';
 import CharactersListItem from "./characters-list-item/characters-list-item";
 import Loader from "../loader/loader";
-import Filter from "./filter/filter";
 import Paginator from "./paginator/paginator";
 import Modal from "../modal/modal";
 
-const CharactersList = ({characters, totalCharacters, currentPage, setCurrentPage, isFetching}) => {
+const CharactersList = ({characters, totalCharacters, currentPage, setCurrentPage, isFetching, captions}) => {
 
     const [isOpen, setIsOpen] = useState(false);
     const [charId, setCharId] = useState(0);
@@ -34,21 +33,18 @@ const CharactersList = ({characters, totalCharacters, currentPage, setCurrentPag
     });
 
     return (
-        <div className={s.container}>
+        <div>
             {isOpen ? <Modal setIsOpen={setIsOpen} character={characters[charId]}/> : null}
-            <div className={s.title}>{totalCharacters} Peoples for you to choose your favorite</div>
             <br/>
 
             {!isFetching ? (
                 <>
-                    <Filter/>
-                    <br/>
                     <div className={s.characters_list}>
                         {charactersItems}
                     </div>
                     <div className={s.paginator_wrapper}>
                         <Paginator totalCharacters={totalCharacters} currentPage={currentPage}
-                                   setCurrentPage={setCurrentPage}/>
+                                   setCurrentPage={setCurrentPage} captions={captions}/>
                     </div>
                 </>
             ) : (

@@ -13,19 +13,19 @@ const CharactersListItem = ({name, birth_year, height, mass, gender}) => {
         <div className={s.character_list_item}>
             <h3><b>{name}</b></h3>
             <div className={s.char_body}>
-                <div>
+                {height !== 'unknown' && <div>
                     <div className={s.round}>{height}</div>
                     <div>height</div>
-                </div>
-                <div>
+                </div>}
+                {mass !== 'unknown' && <div>
                     <div className={s.round}>{mass}</div>
                     <div>mass</div>
-                </div>
+                </div>}
             </div>
             <br/>
             <div>
-                {genderTag ? <span className={`${s.tag} ${genderTag}`}>{gender}</span> : null}
-                <span className={`${s.tag} ${s.blue}`}>{birth_year}</span>
+                {genderTag && <span className={`${s.tag} ${genderTag}`}>{gender}</span>}
+                {birth_year !== 'unknown' && <span className={`${s.tag} ${s.blue}`}>{birth_year}</span>}
             </div>
         </div>
     )

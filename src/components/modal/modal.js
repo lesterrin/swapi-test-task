@@ -7,23 +7,30 @@ import male_img from '../../assets/Icon female.png';
 
 const Modal = ({character, setIsOpen}) => {
 
-    const {name, gender, mass, height, hair_color, skin_color,  birth_year} = character;
+    const {name, gender, mass, height, hair_color, skin_color, birth_year} = character;
     let genderTag;
     let img;
 
-    if (gender === 'female') {
-        genderTag = s.violet;
-        img = female_img
+    switch (gender) {
+        case 'female':
+            genderTag = s.violet;
+            img = female_img
+            break;
+
+        case 'male':
+            genderTag = s.violet;
+            img = male_img
+            break;
+
+        case 'hermaphrodite':
+            genderTag = s.violet;
+            img = not_img
+            break;
+
+        default:
+            img = not_img;
+            break;
     }
-    if (gender === 'male') {
-        genderTag = s.green;
-        img = male_img
-    }
-    if (gender === 'hermaphrodite') {
-        genderTag = s.yellow;
-        img = not_img;
-    }
-    if (gender === 'n/a') img = not_img;
 
     return (
         <>
@@ -36,7 +43,7 @@ const Modal = ({character, setIsOpen}) => {
                     <div className={s.l_clm}>
                         <img className={s.img} src={img}/>
                         <div className={s.tags}>
-                            {genderTag ? <span className={`${s.tag} ${genderTag}`}>{gender}</span> : null}
+                            {genderTag && <span className={`${s.tag} ${genderTag}`}>{gender}</span>}
                             <span className={`${s.tag} ${s.blue}`}>{birth_year}</span>
                         </div>
                     </div>
@@ -48,14 +55,14 @@ const Modal = ({character, setIsOpen}) => {
                             <p></p>
                         </div>
                         <div className={s.second_params}>
-                            <div>
+                            {height !== 'unknown' && <div>
                                 <div className={s.round}>{height}</div>
                                 <div>height</div>
-                            </div>
-                            <div>
+                            </div>}
+                            {mass !== 'unknown' && <div>
                                 <div className={s.round}>{mass}</div>
                                 <div>mass</div>
-                            </div>
+                            </div>}
                         </div>
                     </div>
                 </div>
