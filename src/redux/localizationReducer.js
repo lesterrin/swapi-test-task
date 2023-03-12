@@ -1,9 +1,9 @@
 const TOGGLE_LANGUAGE = 'TOGGLE-LANGUAGE';
 
 const initialState = {
-    language: 'english',
+    language: 'en',
     captions: {
-        english: {
+        en: {
             navbar: {
                 home: 'Home',
                 characters: 'Characters'
@@ -52,7 +52,7 @@ const localizationReducer = (state = initialState, action) => {
 
         case TOGGLE_LANGUAGE:
 
-            const lang = state.language === 'english' ? 'wookie' : 'english';
+            const lang = state.language === 'en' ? 'wookie' : 'en';
 
             return {
                 ...state,

@@ -11,7 +11,7 @@ const CharactersListItem = ({name, birth_year, height, mass, gender}) => {
 
     return (
         <div className={s.character_list_item}>
-            <h3><b>{name}</b></h3>
+            <div className={s.title}>{name}</div>
             <div className={s.char_body}>
                 {height !== 'unknown' && <div>
                     <div className={s.round}>{height}</div>

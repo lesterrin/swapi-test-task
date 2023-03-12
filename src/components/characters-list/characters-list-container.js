@@ -44,14 +44,14 @@ const CharactersListContainer = ({
 };
 
 const mapStateToProps = ({characters, localization}) => ({
-        characters: characters.charactersData,
-        currentPage: characters.currentPage,
-        isFetching: characters.isFetching,
-        totalCharacters: characters.totalCharacters,
-        isStartPackInitialized: characters.isStartPackInitialized,
-        isInitialized: characters.isInitialized,
-        filterParams: characters.filterParams,
-        captions: localization.selectedCaptions.characters
+    characters: characters.charactersData,
+    currentPage: characters.currentPage,
+    isFetching: characters.isFetching,
+    totalCharacters: characters.totalCharacters,
+    isStartPackInitialized: characters.isStartPackInitialized,
+    isInitialized: characters.isInitialized,
+    filterParams: characters.filterParams,
+    captions: localization.selectedCaptions.characters
 });
 
 export default connect(mapStateToProps, {
