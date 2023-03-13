@@ -1,12 +1,13 @@
 .wrapper {
     background: linear-gradient(180deg, #1F2A63 0%, #17002F 100%);
+    height: calc(100vh - 93px);
 }
 
 .container {
     width: 750px;
     margin-left: auto;
     margin-right: auto;
-    padding: 128px 15px 33px;
+    padding: 128px 15px 0px;
     display: flex;
     flex-wrap: wrap;
 }
