@@ -35,8 +35,6 @@ const CharactersList = ({characters, totalCharacters, currentPage, setCurrentPag
     return (
         <div>
             {isOpen ? <Modal setIsOpen={setIsOpen} character={characters[charId]}/> : null}
-            <br/>
-
             {!isFetching ? (
                 <>
                     <div className={s.characters_list}>

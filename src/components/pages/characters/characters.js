@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import s from './characters.module.css';
 import CharactersListContainer from "../../characters-list/characters-list-container";
 import FilterContainer from "../../filter/filter-container";
@@ -12,7 +12,7 @@ const Characters = ({language, toggleLanguage, totalCharacters, captions}) => {
     }
     return (
         <div className={s.container}>
-            <div className={s.localization} onClick={clickHandler}>language: {language}</div>
+            <div className={s.localization} onClick={clickHandler}><span>language: {language}</span></div>
             <div className={s.title}>{totalCharacters} {captions.title}</div>
             <FilterContainer/>
             <CharactersListContainer/>

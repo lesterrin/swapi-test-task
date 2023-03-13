@@ -5,7 +5,7 @@
 .characters_list {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 10px 10px;
+    gap: 45px 34px;
 }
 
 .paginator_wrapper {

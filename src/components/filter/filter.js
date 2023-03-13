@@ -1,7 +1,5 @@
 import React, {useState, useEffect} from "react";
 import s from './filter.module.css';
-import {connect} from "react-redux";
-import {setFilterParams} from "../../redux/charactersReducer";
 
 const Filter = ({characters, setFilterParams, filterParams}) => {
 
@@ -36,7 +34,7 @@ const Filter = ({characters, setFilterParams, filterParams}) => {
     }
 
     return (
-        <div className={s.container}>
+        <div className={s.wrapper}>
             <select ref={charPropertiesSelector} onChange={changeFieldSelectorHandler}>
                 <option value='name'>name</option>
                 <option value='height'>height</option>

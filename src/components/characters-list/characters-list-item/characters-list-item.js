@@ -25,7 +25,7 @@ const CharactersListItem = ({name, birth_year, height, mass, gender}) => {
             <br/>
             <div>
                 {genderTag && <span className={`${s.tag} ${genderTag}`}>{gender}</span>}
-                {birth_year !== 'unknown' && <span className={`${s.tag} ${s.blue}`}>{birth_year}</span>}
+                <span className={`${s.tag} ${s.blue}`}>{birth_year}</span>
             </div>
         </div>
     )
