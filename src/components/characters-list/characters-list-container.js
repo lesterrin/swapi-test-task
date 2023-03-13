@@ -1,19 +1,18 @@
 import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
 import {
+    changePage,
     getCharacters,
-    setCurrentPage,
     toggleIsFetching
 } from "../../redux/charactersReducer";
 
 import CharactersList from './characters-list';
-import Loader from "../loader/loader";
 
 const CharactersListContainer = ({
                                      characters,
                                      totalCharacters,
                                      currentPage,
-                                     setCurrentPage,
+                                     changePage,
                                      getCharacters,
                                      isFetching,
                                      isInitialized,
@@ -29,17 +28,18 @@ const CharactersListContainer = ({
     }
 
     if (isInitialized) {
-        return <CharactersList
-            characters={characters}
-            totalCharacters={totalCharacters}
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-            isFetching={isFetching}
-            captions={captions}
-        />
-    } /*else {
-        return <Loader/>
-    }*/
+        return (
+            <>
+                <CharactersList
+                    characters={characters}
+                    totalCharacters={totalCharacters}
+                    currentPage={currentPage}
+                    changePage={changePage}
+                    isFetching={isFetching}
+                    captions={captions}
+                />
+            </>)
+    }
 
 };
 
@@ -55,7 +55,7 @@ const mapStateToProps = ({characters, localization}) => ({
 });
 
 export default connect(mapStateToProps, {
-    setCurrentPage,
+    changePage,
     toggleIsFetching,
     getCharacters
 })(CharactersListContainer);

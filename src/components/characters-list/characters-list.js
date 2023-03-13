@@ -4,8 +4,9 @@ import CharactersListItem from "./characters-list-item/characters-list-item";
 import Loader from "../loader/loader";
 import Paginator from "./paginator/paginator";
 import Modal from "../modal/modal";
+import FilterContainer from "../filter/filter-container";
 
-const CharactersList = ({characters, totalCharacters, currentPage, setCurrentPage, isFetching, captions}) => {
+const CharactersList = ({characters, totalCharacters, currentPage, changePage, isFetching, captions}) => {
 
     const [isOpen, setIsOpen] = useState(false);
     const [charId, setCharId] = useState(0);
@@ -37,12 +38,13 @@ const CharactersList = ({characters, totalCharacters, currentPage, setCurrentPag
             {isOpen ? <Modal setIsOpen={setIsOpen} character={characters[charId]}/> : null}
             {!isFetching ? (
                 <>
+                    <FilterContainer />
                     <div className={s.characters_list}>
                         {charactersItems}
                     </div>
                     <div className={s.paginator_wrapper}>
                         <Paginator totalCharacters={totalCharacters} currentPage={currentPage}
-                                   setCurrentPage={setCurrentPage} captions={captions}/>
+                                   changePage={changePage} captions={captions}/>
                     </div>
                 </>
             ) : (

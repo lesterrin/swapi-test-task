@@ -73,6 +73,13 @@ export const setFilterParams = (property, value) => ({type: FILTER_PARAMS, prope
 
 export const initializeSuccess = () => ({type: INITIALIZE_SUCCESS});
 
+export const changePage = (targetPage) => {
+    return (dispatch) => {
+        dispatch(setCurrentPage(targetPage));
+        dispatch(setFilterParams('name', 'all'));
+    }
+}
+
 export const getCharacters = (currentPage) => {
     return (dispatch) => {
         dispatch(toggleIsFetching(true));

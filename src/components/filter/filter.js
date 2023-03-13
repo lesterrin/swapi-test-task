@@ -11,20 +11,18 @@ const Filter = ({characters, setFilterParams, filterParams}) => {
     const [valuesSelectorOptions, setValuesSelectorOptions] = useState(null);
 
     useEffect(() => {
-        generateFieldSelector();
+        generatePropertiesSelector();
     }, [filterParams])
 
-    const generateFieldSelector = () => {
-
+    const generatePropertiesSelector = () => {
         let charProperties = characters.map(e => e[property]);
         charProperties = [...new Set(charProperties)];
         charProperties = charProperties.map(e => <option value={e}>{e}</option>);
         setValuesSelectorOptions(charProperties);
-
     }
 
-    const changeFieldSelectorHandler = () => {
-        generateFieldSelector();
+    const changePropertiesSelectorHandler = () => {
+        generatePropertiesSelector();
         setFilterParams(charPropertiesSelector.current.value, 'all')
     }
 
@@ -35,7 +33,7 @@ const Filter = ({characters, setFilterParams, filterParams}) => {
 
     return (
         <div className={s.wrapper}>
-            <select ref={charPropertiesSelector} onChange={changeFieldSelectorHandler}>
+            <select value={property} ref={charPropertiesSelector} onChange={changePropertiesSelectorHandler}>
                 <option value='name'>name</option>
                 <option value='height'>height</option>
                 <option value='mass'>mass</option>
