@@ -4,8 +4,9 @@ import CharactersListContainer from "../../characters-list/characters-list-conta
 import FilterContainer from "../../filter/filter-container";
 import {toggleLanguage} from "../../../redux/localizationReducer";
 import {connect} from "react-redux";
+import Loader from "../../loader/loader";
 
-const Characters = ({language, toggleLanguage, totalCharacters, captions}) => {
+const Characters = ({language, toggleLanguage, totalCharacters, captions, isInitialized}) => {
 
     const clickHandler = () => {
         toggleLanguage();
@@ -13,16 +14,23 @@ const Characters = ({language, toggleLanguage, totalCharacters, captions}) => {
     return (
         <div className={s.container}>
             <div className={s.localization} onClick={clickHandler}><span>language: {language}</span></div>
-            <div className={s.title}>{totalCharacters} {captions.title}</div>
-            <FilterContainer/>
+            {isInitialized ?
+                <>
+                    <div className={s.title}>{totalCharacters} {captions.title}</div>
+                    <FilterContainer/>
+                </>
+                :
+                <Loader/>
+            }
             <CharactersListContainer/>
         </div>
     )
 }
 
-const mapStateToProps = ({localization,characters}) => ({
+const mapStateToProps = ({localization, characters}) => ({
     language: localization.language,
     captions: localization.selectedCaptions.characters,
-    totalCharacters: characters.totalCharacters
+    totalCharacters: characters.totalCharacters,
+    isInitialized: characters.isInitialized
 })
 export default connect(mapStateToProps, {toggleLanguage})(Characters);

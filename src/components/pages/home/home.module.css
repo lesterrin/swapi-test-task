@@ -12,7 +12,7 @@
 }
 
 .l_col {
-    width: 38%;
+    width: 41%;
 }
 
 .title {
@@ -20,6 +20,8 @@
     line-height: 84px;
     letter-spacing: 4px;
     color: #FFFFFF;
+    word-wrap: break-word;
+    hyphens: auto;
 }
 
 .description {
@@ -42,7 +44,7 @@
 }
 
 .r_col {
-    width: 62%;
+    width: 59%;
 }
 
 @media (max-width: 767px){

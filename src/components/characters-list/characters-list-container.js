@@ -37,9 +37,9 @@ const CharactersListContainer = ({
             isFetching={isFetching}
             captions={captions}
         />
-    } else {
+    } /*else {
         return <Loader/>
-    }
+    }*/
 
 };
 
