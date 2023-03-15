@@ -48,6 +48,10 @@
     width: 59%;
 }
 
+.yoda {
+    width: 100%;
+}
+
 @media (max-width: 767px){
     .container {
         width: inherit;

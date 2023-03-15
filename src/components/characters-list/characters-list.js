@@ -35,10 +35,9 @@ const CharactersList = ({characters, totalCharacters, currentPage, changePage, i
 
     return (
         <div>
-            {isOpen ? <Modal setIsOpen={setIsOpen} character={characters[charId]}/> : null}
             {!isFetching ? (
                 <>
-                    <FilterContainer />
+                    <FilterContainer/>
                     <div className={s.characters_list}>
                         {charactersItems}
                     </div>
@@ -46,6 +45,7 @@ const CharactersList = ({characters, totalCharacters, currentPage, changePage, i
                         <Paginator totalCharacters={totalCharacters} currentPage={currentPage}
                                    changePage={changePage} captions={captions}/>
                     </div>
+                    {isOpen ? <Modal setIsOpen={setIsOpen} character={characters[charId]}/> : null}
                 </>
             ) : (
                 <div className={s.paginator_wrapper}>

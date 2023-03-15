@@ -1,52 +1,81 @@
 import React, {useState, useEffect} from "react";
+import arrowFilter from '../../assets/ArrowFilter.png';
 import s from './filter.module.css';
 
 const Filter = ({characters, setFilterParams, filterParams}) => {
 
     const {property, value} = filterParams;
 
-    const charPropertiesSelector = React.createRef();
-    const valueSelector = React.createRef();
-
     const [valuesSelectorOptions, setValuesSelectorOptions] = useState(null);
 
     useEffect(() => {
-        generatePropertiesSelector();
+        generateValuesSelector();
     }, [filterParams])
 
-    const generatePropertiesSelector = () => {
-        let charProperties = characters.map(e => e[property]);
-        charProperties = [...new Set(charProperties)];
-        charProperties = charProperties.map(e => <option value={e}>{e}</option>);
-        setValuesSelectorOptions(charProperties);
+    const generateValuesSelector = () => {
+        let propertyValues = characters.map(e => e[property]);
+        propertyValues = [...new Set(propertyValues)];
+        propertyValues = propertyValues.map(e => <li customValue={e} onClick={changeValueSelectorHandler}>{e}</li>);
+        setValuesSelectorOptions(propertyValues);
     }
 
-    const changePropertiesSelectorHandler = () => {
-        generatePropertiesSelector();
-        setFilterParams(charPropertiesSelector.current.value, 'all')
+    const [isPropSelectorOpen, setIsPropSelectorOpen] = useState(false);
+    const [isValueSelectorOpen, setIsValueSelectorOpen] = useState(false);
+
+    const togglePropSelector = (bool) => {
+        setIsPropSelectorOpen(bool);
     }
 
-    const changeValueSelectorHandler = () => {
-        const selectedValue = valueSelector.current.value;
-        setFilterParams(property,selectedValue);
+    const toggleValueSelector = (bool) => {
+        setIsValueSelectorOpen(bool);
+    }
+
+    const changePropertiesSelectorHandler = (e) => {
+        togglePropSelector(false);
+        setFilterParams(e.target.getAttribute('customValue'), 'all')
+        generateValuesSelector();
+    }
+
+    const changeValueSelectorHandler = (e) => {
+        toggleValueSelector(false);
+        const selectedValue = e.target.getAttribute('customValue');
+        setFilterParams(property, selectedValue);
     }
 
     return (
         <div className={s.wrapper}>
-            <select value={property} ref={charPropertiesSelector} onChange={changePropertiesSelectorHandler}>
-                <option value='name'>name</option>
-                <option value='height'>height</option>
-                <option value='mass'>mass</option>
-                <option value='hair_color'>hair color</option>
-                <option value='skin_color'>skin color</option>
-                <option value='eye_color'>eye color</option>
-                <option value='birth_year'>birth year</option>
-                <option value='gender'>gender</option>
-            </select>
-            <select value={value} ref={valueSelector} onChange={changeValueSelectorHandler}>
-                <option value='all'>all</option>
-                {valuesSelectorOptions}
-            </select>
+            <div className={s.custom_selector} onBlur={() => togglePropSelector(false)} tabIndex="0">
+                <div onClick={() => togglePropSelector(!isPropSelectorOpen)}
+                     className={s.custom_selector_trigger}>
+                    {property.replace('_', ' ')}
+                    <img src={arrowFilter}/>
+                </div>
+                {isPropSelectorOpen &&
+                <ol className={s.custom_selector_options}>
+                    <li customValue='name' onClick={changePropertiesSelectorHandler}>name</li>
+                    <li customValue='height' onClick={changePropertiesSelectorHandler}>height</li>
+                    <li customValue='mass' onClick={changePropertiesSelectorHandler}>mass</li>
+                    <li customValue='hair_color' onClick={changePropertiesSelectorHandler}>hair color</li>
+                    <li customValue='skin_color' onClick={changePropertiesSelectorHandler}>skin color</li>
+                    <li customValue='eye_color' onClick={changePropertiesSelectorHandler}>eye color</li>
+                    <li customValue='birth_year' onClick={changePropertiesSelectorHandler}>birth year</li>
+                    <li customValue='gender' onClick={changePropertiesSelectorHandler}>gender</li>
+                </ol>
+                }
+            </div>
+
+            <div className={s.custom_selector} onBlur={() => toggleValueSelector(false)} tabIndex="0">
+                <div onClick={() => toggleValueSelector(true)}
+                     className={s.custom_selector_trigger}>
+                    {value.replace('_', ' ')}
+                    <img src={arrowFilter}/>
+                </div>
+                {isValueSelectorOpen &&
+                <ol className={s.custom_selector_options}>
+                    {valuesSelectorOptions}
+                </ol>
+                }
+            </div>
         </div>
     )
 }
