@@ -72,6 +72,7 @@ const Filter = ({characters, setFilterParams, filterParams}) => {
                 </div>
                 {isValueSelectorOpen &&
                 <ol className={s.custom_selector_options}>
+                    <li customValue='all' onClick={changeValueSelectorHandler}>All</li>
                     {valuesSelectorOptions}
                 </ol>
                 }

@@ -32,3 +32,5 @@ const CustomSelector = ({onChange, options, activeValue}) => {
         </div>
     )
 }
+
+export default CustomSelector;
