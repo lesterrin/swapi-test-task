@@ -5,7 +5,7 @@
 
 Ссылка на прод: https://swapi-test-task.vercel.app/
 
-Стэк: JavaScript, ReactJS, React Router, Redux, Redux-Toolkit, HTML, CSS
+Стэк: JavaScript, ReactJS, React Router, Redux, Thunk, Redux-Toolkit, HTML, CSS
 
 # Скриншоты
 ![Главная](./src/assets/screenshot_home.PNG)
