@@ -1,11 +1,12 @@
 import {getCharactersData} from '../api/api';
+import {createSlice} from "@reduxjs/toolkit";
 
-const SET_CHARACTERS = 'SET-CHARACTERS';
+/*const SET_CHARACTERS = 'SET-CHARACTERS';
 const SET_TOTAL = 'SET-TOTAL';
 const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE';
 const TOGGLE_IS_FETCHING = 'TOGGLE-IS-FETCHING';
 const INITIALIZE_SUCCESS = 'INITIALIZE-SUCCESS';
-const FILTER_PARAMS = 'FILTER-PARAMS';
+const FILTER_PARAMS = 'FILTER-PARAMS';*/
 
 const initialState = {
     charactersData: [],
@@ -16,7 +17,67 @@ const initialState = {
     filterParams: {property: 'name', value: 'all'}
 };
 
-const charactersReducer = (state = initialState, action) => {
+const charactersSlice = createSlice({
+    name: 'characters',
+    initialState: initialState,
+    reducers: {
+        setCharacters(state, action) {
+            state.charactersData = [...action.payload];
+        },
+        setTotalCharacters(state, action) {
+            state.totalCharacters = action.payload;
+        },
+        setCurrentPage(state, action) {
+            state.currentPage = action.payload;
+        },
+        toggleIsFetching(state, action) {
+            state.isFetching = action.payload;
+        },
+        setFilterParams(state, action) {
+            console.log(action.payload);
+            state.filterParams = {property: action.payload.property, value: action.payload.value};
+        },
+        initializeSuccess(state, action) {
+            state.isInitialized = true;
+        }
+    },
+});
+
+const { actions, reducer } = charactersSlice;
+
+export const {
+    setCharacters,
+    setTotalCharacters,
+    setCurrentPage,
+    toggleIsFetching,
+    setFilterParams,
+    initializeSuccess
+} = actions;
+
+export const changePage = (targetPage) => {
+    return (dispatch) => {
+        dispatch(setCurrentPage(targetPage));
+        dispatch(setFilterParams({property: 'name', value: 'all'}));
+    }
+}
+
+export const getCharacters = (currentPage) => {
+    return (dispatch) => {
+        dispatch(toggleIsFetching(true));
+
+        getCharactersData(currentPage).then((data) => {
+            dispatch(initializeSuccess());
+            dispatch(toggleIsFetching(false));
+            dispatch(setCharacters(data.results));
+            dispatch(setTotalCharacters(data.count))
+        });
+    };
+};
+
+
+export default reducer;
+
+/*const charactersReducer = (state = initialState, action) => {
     switch (action.type) {
 
         case SET_CHARACTERS:
@@ -58,9 +119,9 @@ const charactersReducer = (state = initialState, action) => {
         default:
             return state;
     }
-};
+};*/
 
-
+/*
 export const setCharacters = (characters) => ({type: SET_CHARACTERS, charactersData: characters});
 
 export const setTotalCharacters = (totalCharacters) => ({type: SET_TOTAL, totalCharacters});
@@ -71,26 +132,8 @@ export const toggleIsFetching = (bool) => ({type: TOGGLE_IS_FETCHING, bool});
 
 export const setFilterParams = (property, value) => ({type: FILTER_PARAMS, property, value});
 
-export const initializeSuccess = () => ({type: INITIALIZE_SUCCESS});
+export const initializeSuccess = () => ({type: INITIALIZE_SUCCESS});*/
 
-export const changePage = (targetPage) => {
-    return (dispatch) => {
-        dispatch(setCurrentPage(targetPage));
-        dispatch(setFilterParams('name', 'all'));
-    }
-}
 
-export const getCharacters = (currentPage) => {
-    return (dispatch) => {
-        dispatch(toggleIsFetching(true));
 
-        getCharactersData(currentPage).then((data) => {
-            dispatch(initializeSuccess());
-            dispatch(toggleIsFetching(false));
-            dispatch(setCharacters(data.results));
-            dispatch(setTotalCharacters(data.count))
-        });
-    };
-};
-
-export default charactersReducer;
+//export default charactersReducer;

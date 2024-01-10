@@ -32,14 +32,14 @@ const Filter = ({characters, setFilterParams, filterParams}) => {
 
     const changePropertiesSelectorHandler = (e) => {
         togglePropSelector(false);
-        setFilterParams(e.target.getAttribute('customValue'), 'all')
+        setFilterParams({property: e.target.getAttribute('customValue'), value: 'all'})
         generateValuesSelector();
     }
 
     const changeValueSelectorHandler = (e) => {
         toggleValueSelector(false);
         const selectedValue = e.target.getAttribute('customValue');
-        setFilterParams(property, selectedValue);
+        setFilterParams({property: property, value: selectedValue});
     }
 
     return (

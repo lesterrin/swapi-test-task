@@ -6,7 +6,6 @@ import localizationReducer from "./localizationReducer";
 const rootReducer = {characters: charactersReducer, localization: localizationReducer}
 
 const store = configureStore({
-    //reducer: charactersReducer,
     reducer: rootReducer
 });
 

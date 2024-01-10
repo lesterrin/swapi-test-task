@@ -1,4 +1,6 @@
-const TOGGLE_LANGUAGE = 'TOGGLE-LANGUAGE';
+import {createSlice} from "@reduxjs/toolkit";
+
+//const TOGGLE_LANGUAGE = 'TOGGLE-LANGUAGE';
 
 const initialState = {
     language: 'en',
@@ -47,7 +49,30 @@ const initialState = {
 
 initialState.selectedCaptions = initialState.captions[initialState.language];
 
-const localizationReducer = (state = initialState, action) => {
+const localizationSlice = createSlice({
+    name: 'localization',
+    initialState: initialState,
+    reducers: {
+        toggleLanguage(state, action) {
+            const lang = state.language === 'en' ? 'wookie' : 'en';
+            state.language = lang;
+            state.selectedCaptions = state.captions[lang];
+        }
+    },
+});
+
+/*export const toggleLanguage = createAction('TOGGLE-LANGUAGE');
+
+const localizationReducer = createReducer(initialState, (builder) => {
+    builder
+        .addCase(toggleLanguage, (state, action) => {
+            const lang = state.language === 'en' ? 'wookie' : 'en';
+            state.language = lang;
+            state.selectedCaptions = state.captions[lang];
+        })
+});*/
+
+/*const localizationReducer2 = (state = initialState, action) => {
     switch (action.type) {
 
         case TOGGLE_LANGUAGE:
@@ -63,10 +88,16 @@ const localizationReducer = (state = initialState, action) => {
         default:
             return state;
     }
-};
+};*/
 
+//export const toggleLanguage = () => ({type: TOGGLE_LANGUAGE});
 
-export const toggleLanguage = () => ({type: TOGGLE_LANGUAGE});
+//export default localizationReducer;
 
+const { actions, reducer } = localizationSlice;
 
-export default localizationReducer;
+export const {
+    toggleLanguage
+} = actions;
+
+export default reducer;
