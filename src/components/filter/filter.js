@@ -15,7 +15,7 @@ const Filter = ({characters, setFilterParams, filterParams}) => {
     const generateValuesSelector = () => {
         let propertyValues = characters.map(e => e[property]);
         propertyValues = [...new Set(propertyValues)];
-        propertyValues = propertyValues.map(e => <li customValue={e} onClick={changeValueSelectorHandler}>{e}</li>);
+        propertyValues = propertyValues.map((e,i) => <li key={i} customValue={e} onClick={changeValueSelectorHandler}>{e}</li>);
         setValuesSelectorOptions(propertyValues);
     }
 

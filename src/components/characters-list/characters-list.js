@@ -19,9 +19,8 @@ const CharactersList = ({characters, totalCharacters, currentPage, changePage, i
 
     const charactersItems = characters.map(({name, height, mass, gender, hair_color, birth_year}, cid) => {
         return (
-            <div className={s.item_wrapper} onClick={() => openModal(cid)}>
+            <div key={cid} className={s.item_wrapper} onClick={() => openModal(cid)}>
                 <CharactersListItem
-                    key={cid}
                     name={name}
                     height={height}
                     mass={mass}

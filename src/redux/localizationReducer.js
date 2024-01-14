@@ -61,39 +61,6 @@ const localizationSlice = createSlice({
     },
 });
 
-/*export const toggleLanguage = createAction('TOGGLE-LANGUAGE');
-
-const localizationReducer = createReducer(initialState, (builder) => {
-    builder
-        .addCase(toggleLanguage, (state, action) => {
-            const lang = state.language === 'en' ? 'wookie' : 'en';
-            state.language = lang;
-            state.selectedCaptions = state.captions[lang];
-        })
-});*/
-
-/*const localizationReducer2 = (state = initialState, action) => {
-    switch (action.type) {
-
-        case TOGGLE_LANGUAGE:
-
-            const lang = state.language === 'en' ? 'wookie' : 'en';
-
-            return {
-                ...state,
-                language: lang,
-                selectedCaptions: state.captions[lang]
-            };
-
-        default:
-            return state;
-    }
-};*/
-
-//export const toggleLanguage = () => ({type: TOGGLE_LANGUAGE});
-
-//export default localizationReducer;
-
 const { actions, reducer } = localizationSlice;
 
 export const {
@@ -101,3 +68,4 @@ export const {
 } = actions;
 
 export default reducer;
+

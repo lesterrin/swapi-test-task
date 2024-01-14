@@ -1,21 +1,28 @@
-import {connect} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {setFilterParams} from "../../redux/charactersReducer";
 import React from "react";
 import Filter from "./filter";
+import {selectCharactersData, selectFilterParams, selectIsInitialized} from "../../selectors/charactersSelector";
 
-const FilterContainer = (props) => {
-    if (props.isInitialized) {
-        return <Filter {...props}/>;
+const FilterContainer = () => {
+
+    const dispatch = useDispatch();
+
+    const characters = useSelector(selectCharactersData);
+    const isInitialized = useSelector(selectIsInitialized);
+    const filterParams = useSelector(selectFilterParams);
+
+    const setFilterParamsWrapper = (params) => {
+        dispatch(setFilterParams(params));
+    }
+
+    if (isInitialized) {
+        return <Filter setFilterParams={setFilterParamsWrapper}
+                       characters={characters}
+                       isInitialized={isInitialized}
+                       filterParams={filterParams}/>;
     }
 
 }
 
-const mapStateToProps = ({characters}) => {
-    return {
-        characters: characters.charactersData,
-        isInitialized: characters.isInitialized,
-        filterParams: characters.filterParams
-    };
-};
-
-export default connect(mapStateToProps,{setFilterParams})(FilterContainer);
+export default FilterContainer;
