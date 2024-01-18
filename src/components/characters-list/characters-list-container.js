@@ -1,26 +1,37 @@
 import React, {useEffect} from 'react';
-import {connect} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {
     changePage,
-    getCharacters,
-    toggleIsFetching
+    getCharacters
 } from "../../redux/charactersReducer";
 
 import CharactersList from './characters-list';
+import {
+    selectCaptions,
+    selectCharactersData, selectCurrentPage,
+    selectFilterParams, selectIsFetching,
+    selectIsInitialized,
+    selectTotalCharacters
+} from "../../selectors/charactersSelector";
 
-const CharactersListContainer = ({
-                                     characters,
-                                     totalCharacters,
-                                     currentPage,
-                                     changePage,
-                                     getCharacters,
-                                     isFetching,
-                                     isInitialized,
-                                     filterParams,
-                                     captions
-                                 }) => {
+const CharactersListContainer = () => {
+
+    const dispatch = useDispatch();
+
+    const changePageWrapper = (pageNumber) => {
+        dispatch(changePage(pageNumber));
+    };
+
+    let characters = useSelector(selectCharactersData);
+    const isInitialized = useSelector(selectIsInitialized);
+    const filterParams = useSelector(selectFilterParams);
+    const totalCharacters = useSelector(selectTotalCharacters);
+    const currentPage = useSelector(selectCurrentPage);
+    const isFetching = useSelector(selectIsFetching);
+    const captions = useSelector(selectCaptions);
+
     useEffect(() => {
-        getCharacters(currentPage);
+        dispatch(getCharacters(currentPage));
     }, [currentPage]);
 
     if (filterParams.value !== 'all') {
@@ -34,7 +45,7 @@ const CharactersListContainer = ({
                     characters={characters}
                     totalCharacters={totalCharacters}
                     currentPage={currentPage}
-                    changePage={changePage}
+                    changePage={changePageWrapper}
                     isFetching={isFetching}
                     captions={captions}
                 />
@@ -43,19 +54,4 @@ const CharactersListContainer = ({
 
 };
 
-const mapStateToProps = ({characters, localization}) => ({
-    characters: characters.charactersData,
-    currentPage: characters.currentPage,
-    isFetching: characters.isFetching,
-    totalCharacters: characters.totalCharacters,
-    isStartPackInitialized: characters.isStartPackInitialized,
-    isInitialized: characters.isInitialized,
-    filterParams: characters.filterParams,
-    captions: localization.selectedCaptions.characters
-});
-
-export default connect(mapStateToProps, {
-    changePage,
-    toggleIsFetching,
-    getCharacters
-})(CharactersListContainer);
+export default CharactersListContainer;

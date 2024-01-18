@@ -16,7 +16,6 @@ const CharactersList = ({characters, totalCharacters, currentPage, changePage, i
         setCharId(id);
     }
 
-
     const charactersItems = characters.map(({name, height, mass, gender, hair_color, birth_year}, cid) => {
         return (
             <div key={cid} className={s.item_wrapper} onClick={() => openModal(cid)}>
